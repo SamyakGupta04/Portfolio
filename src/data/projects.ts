@@ -25,7 +25,7 @@ export const projects: Project[] = [
     result: '40% latency reduction via ONNX Runtime; robust multi-stage adversarial detection.',
     category: 'AI Safety',
     gradient: 'linear-gradient(135deg, #ff6b6b22, #ffa50022)',
-    image: '/card-ai-safety.png',
+    image: `${import.meta.env.BASE_URL}card-ai-safety.png`,
   },
   {
     id: 'geospatial-ai-forest',
@@ -38,7 +38,7 @@ export const projects: Project[] = [
     result: '97% F-measure on crown segmentation with real-time geospatial data processing.',
     category: 'Computer Vision',
     gradient: 'linear-gradient(135deg, #34d39922, #06b6d422)',
-    image: '/card-geospatial.png',
+    image: `${import.meta.env.BASE_URL}card-geospatial.png`,
   },
   {
     id: 'multimedia-sharing-app',
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     result: 'Intelligent semantic retrieval engine powering automated photo clustering and context-aware filtering.',
     category: 'AI backend / Integration',
     gradient: 'linear-gradient(135deg, #06b6d422, #8b5cf622)',
-    image: '/card-fullstack.png',
+    image: `${import.meta.env.BASE_URL}card-fullstack.png`,
   },
   {
     id: 'network-anomaly-detection',
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     result: 'Achieved a 97% F-measure across 14 distinct attack types via optimized feature selection.',
     category: 'Machine Learning',
     gradient: 'linear-gradient(135deg, #a78bfa22, #818cf822)',
-    image: '/card-network.png',
+    image: `${import.meta.env.BASE_URL}card-network.png`,
   },
   {
     id: 'lorawan-tactical-tracker',
@@ -77,6 +77,6 @@ export const projects: Project[] = [
     result: 'Reliable 10–15 km edge telemetry transmission for real-time data ingestion.',
     category: 'Edge Computing / Telemetry',
     gradient: 'linear-gradient(135deg, #fbbf2422, #f5920022)',
-    image: '/card-embedded.png',
+    image: `${import.meta.env.BASE_URL}card-embedded.png`,
   },
 ];

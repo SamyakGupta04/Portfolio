@@ -79,7 +79,7 @@ export default function Hero() {
               <Mail size={16} />
               <span>Contact Me</span>
             </a>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+            <a href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
               <FileText size={16} />
               <span>Resume</span>
             </a>
@@ -106,7 +106,7 @@ export default function Hero() {
             <div className="hero__visual-ring hero__visual-ring--3" />
             <div className="hero__visual-core">
               <img
-                src="/hero-avatar.png"
+                src={`${import.meta.env.BASE_URL}hero-avatar.png`}
                 alt="Samyak Gupta - AI/ML Engineer"
                 className="hero__avatar-img"
               />

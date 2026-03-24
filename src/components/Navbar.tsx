@@ -58,7 +58,7 @@ export default function Navbar() {
         </div>
 
         <a
-          href="/resume.pdf"
+          href={`${import.meta.env.BASE_URL}resume.pdf`}
           target="_blank"
           rel="noopener noreferrer"
           className="nav__resume"
@@ -97,7 +97,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="/resume.pdf"
+              href={`${import.meta.env.BASE_URL}resume.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               className="nav__mobile-link"
