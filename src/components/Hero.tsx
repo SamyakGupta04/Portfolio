@@ -9,8 +9,8 @@ const domainPills = [
 ];
 
 const proofChips = [
-  'AI Engineer Intern @ Windflow.ai',
-  'ML Engineer Intern @ REC',
+  'AI Engineer @ Windflow.ai',
+  'ML Engineer @ REC',
   'Top 11/7200 Sparkathon',
   'IIT Patna',
 ];

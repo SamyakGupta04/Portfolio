@@ -13,7 +13,7 @@ export const experiences: Experience[] = [
   {
     id: 'windflow',
     company: 'Windflow.ai',
-    role: 'AI Engineer Intern',
+    role: 'AI Engineer',
     duration: 'Jan 2026 – Present',
     location: 'Gurugram, India',
     highlights: [
@@ -36,18 +36,5 @@ export const experiences: Experience[] = [
     ],
     impact: '97% F-measure on crown segmentation',
     type: 'work',
-  },
-  {
-    id: 'iit-patna',
-    company: 'IIT Patna',
-    role: 'B.Tech – Electrical & Electronics Engineering',
-    duration: 'Nov 2022 – May 2026',
-    location: 'Patna, India',
-    highlights: [
-      'Pursuing B.Tech in EEE with focus on AI/ML, computer vision, and systems engineering. Percentage: 74.4%',
-      'JEE Advanced AIR 6785 out of 0.17 million candidates — top percentile national-level selection.',
-    ],
-    impact: 'JEE Advanced AIR 6785',
-    type: 'education',
   },
 ];

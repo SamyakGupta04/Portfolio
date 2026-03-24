@@ -2,7 +2,7 @@ const items = [
   'JEE Advanced AIR 6785',
   'Walmart Sparkathon — Top 11 / 7200',
   'BYD Innovate-a-thon Finalist',
-  'IIT Patna — B.Tech EEE',
+  'B.Tech EEE — IIT Patna',
   'AI Engineer @ Windflow.ai',
   'ML Engineer @ REC',
 ];
