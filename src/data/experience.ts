@@ -13,7 +13,7 @@ export const experiences: Experience[] = [
   {
     id: 'windflow',
     company: 'Windflow.ai',
-    role: 'AI Engineer',
+    role: 'AI Engineer Intern',
     duration: 'Jan 2026 – Present',
     location: 'Gurugram, India',
     highlights: [
