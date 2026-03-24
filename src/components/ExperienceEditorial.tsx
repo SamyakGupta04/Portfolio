@@ -29,7 +29,7 @@ export default function ExperienceEditorial() {
               transition={{ duration: 0.7, delay: 0.15 * index, ease }}
             >
               <div className="exp-entry__rail">
-                <span className="exp-entry__date">{exp.period}</span>
+                <span className="exp-entry__date">{exp.duration}</span>
                 {exp.location && (
                   <span className="exp-entry__location">{exp.location}</span>
                 )}

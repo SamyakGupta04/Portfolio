@@ -1,5 +1,3 @@
-import { motion } from 'motion/react';
-
 const items = [
   'JEE Advanced AIR 6785',
   'Walmart Sparkathon — Top 11 / 7200',
