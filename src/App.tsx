@@ -1,32 +1,26 @@
-import AtmosphericBg from './components/AtmosphericBg';
-import Navbar from './components/Navbar';
-import HeroV2 from './components/HeroV2';
-import CredibilityMarquee from './components/CredibilityMarquee';
-import ProjectShowcase from './components/ProjectShowcase';
-import ExperienceEditorial from './components/ExperienceEditorial';
-import ExpertiseMatrix from './components/ExpertiseMatrix';
-import AboutEditorial from './components/AboutEditorial';
-import ContactMinimal from './components/ContactMinimal';
-import FooterMinimal from './components/FooterMinimal';
-import './App.css';
+import AsciiPortrait from './components/AsciiPortrait';
+import Hero from './components/Hero';
+import Nav from './components/Nav';
+import { About, Closing, Projects, Skills, Work } from './components/Sections';
 
-function App() {
+export default function App() {
   return (
     <>
-      <AtmosphericBg />
-      <Navbar />
+      <a className="skip" href="#work">
+        Skip to the work
+      </a>
+      <AsciiPortrait />
+      <Nav />
       <main>
-        <HeroV2 />
-        <CredibilityMarquee />
-        <ProjectShowcase />
-        <ExperienceEditorial />
-        <ExpertiseMatrix />
-        <AboutEditorial />
-        <ContactMinimal />
+        <Hero />
+        <div className="sheet">
+          <Work />
+          <Projects />
+          <Skills />
+          <About />
+        </div>
+        <Closing />
       </main>
-      <FooterMinimal />
     </>
   );
 }
-
-export default App;

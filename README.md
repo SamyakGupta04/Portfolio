@@ -1,50 +1,45 @@
-# React + TypeScript + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The personal site of Samyak Gupta. Live at https://samyakgupta04.github.io/Portfolio/.
 
-Currently, two official plugins are available:
+Vite, React and TypeScript. No UI library and no animation library. The fonts are bundled with the site.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run it
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm ci
+npm run dev      # http://localhost:5173/Portfolio/
+npm run build    # type-check, then build to dist/
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Deploy
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+A push to `main` starts `.github/workflows/deploy.yml`. The workflow builds the site and publishes it to GitHub Pages.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+The site is served from `/Portfolio/`, so two rules apply:
+
+- Do not write absolute asset paths such as `/resume.pdf`. Use `import.meta.env.BASE_URL` or an import.
+- Keep the site static. GitHub Pages does not run server code.
+
+## Change the words
+
+All the text is in `src/data/content.ts`.
+
+## Change the portrait
+
+The hero draws a portrait from characters. The grid is in `src/data/portrait.ts`, and a script makes that file from a photo:
+
+```bash
+node scripts/build-portrait.mjs photo.local/source.jpg
 ```
+
+- The script needs macOS. It uses the Vision framework to remove the background and to find the face.
+- The script shows only what the photo has. The frame ends where a shoulder reaches the side of the photo, and the page puts that edge on the bottom of the screen.
+- The photo does not go into the repository. `photo.local/` is in `.gitignore` (the `*.local` rule).
+- The options for size, crop and contrast are at the top of the script.
+
+## Design rules
+
+- Two colors: black and white. No grays and no gradients. One accent color, for the role line in the hero only.
+- Hierarchy comes from size and weight, not from color.
+- Glass is used for things that float: the nav, the caption plate, and the contact section, which inverts the page behind it.

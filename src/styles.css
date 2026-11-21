@@ -1,0 +1,816 @@
+/*
+  Two colors only: black ink on white paper. No grays, no gradients.
+  Hierarchy comes from size and weight:
+    h1 name > h2 section > h3 company or project > lead > title > body > meta
+*/
+
+:root {
+  --ink: #000;
+  --paper: #fff;
+  /* The one accent. Used only for the role line in the hero. */
+  --accent: #ff4400;
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1320px;
+  --rail: 15rem;
+  --sans: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+.skip {
+  position: fixed;
+  z-index: 20;
+  top: 12px;
+  left: 12px;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+/* ---------- Shared pieces ---------- */
+
+/* Frosted glass with an ink hairline. The page behind it stays visible, but soft. */
+.glass {
+  border: 1px solid var(--ink);
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.arrow {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: -0.06em;
+}
+
+/* Small labels: dates, stacks, captions. Same family as the text, one size down. */
+.meta {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.link {
+  margin: -2px -5px;
+  padding: 2px 5px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+
+.link:hover {
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration-color: transparent;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.button--solid {
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.button--solid:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.button.glass:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- Portrait: fixed behind the page ---------- */
+
+.portrait {
+  position: fixed;
+  z-index: -1;
+  right: max(var(--gutter), 8vw);
+  /* The frame ends at the shoulders. The bottom of the screen is its bottom edge. */
+  bottom: 0;
+  height: min(76svh, 50vw);
+  pointer-events: none;
+}
+
+.portrait__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  position: fixed;
+  z-index: 10;
+  top: 16px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  max-width: calc(100vw - 24px);
+  padding: 6px 6px 6px 20px;
+  border-radius: 28px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s,
+    color 0.25s;
+}
+
+.nav--dark {
+  border-color: var(--paper);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--paper);
+}
+
+.nav__name {
+  margin-right: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.nav__links {
+  display: flex;
+}
+
+.nav__link {
+  padding: 8px 13px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: underline transparent 2px;
+  text-underline-offset: 6px;
+  transition: text-decoration-color 0.2s;
+}
+
+.nav__link:hover,
+.nav__link[aria-current] {
+  text-decoration-color: currentColor;
+}
+
+.nav__resume {
+  margin-left: 12px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 2px var(--ink);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.nav__resume:hover,
+.nav--dark .nav__resume {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.nav--dark .nav__resume {
+  box-shadow: inset 0 0 0 2px var(--paper);
+}
+
+.nav--dark .nav__resume:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.nav__toggle {
+  display: none;
+  margin-left: 4px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font: 700 0.9375rem var(--sans);
+  cursor: pointer;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  /* Centered in the space below the nav, so no large gap opens above the name. */
+  align-items: center;
+  min-height: 100svh;
+  padding: 96px var(--gutter) 40px;
+}
+
+/*
+  The name is white with a difference blend. On the paper it reads as black.
+  Where it crosses the portrait, the characters show through in white.
+*/
+.hero__name {
+  margin-left: -0.045em;
+  color: var(--paper);
+  font-size: clamp(3.4rem, min(11.7vw, 24svh), 12.4rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.82;
+  mix-blend-mode: difference;
+}
+
+/* Each line slides up from behind its own edge. */
+.hero__line {
+  display: block;
+  margin-bottom: -0.16em;
+  padding-bottom: 0.16em;
+  overflow: hidden;
+}
+
+.hero__line > span {
+  display: block;
+  animation: rise 0.9s var(--ease) both;
+}
+
+.hero__line + .hero__line > span {
+  animation-delay: 0.09s;
+}
+
+.hero__role {
+  color: var(--accent);
+  display: flex;
+  flex-direction: column;
+  margin-top: clamp(26px, 3.4svh, 40px);
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.hero__statement {
+  /* Narrow enough to stay left of the portrait's shoulder. */
+  max-width: min(31rem, 38vw);
+  margin-top: 10px;
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+  line-height: 1.45;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: clamp(20px, 3svh, 32px);
+}
+
+.hero__role,
+.hero__statement,
+.hero__actions {
+  animation: settle 0.8s 0.45s var(--ease) both;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* ---------- The white sheet that slides over the portrait ---------- */
+
+.sheet {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+  border-top: 2px solid var(--ink);
+}
+
+.section {
+  padding: clamp(72px, 10vw, 144px) var(--gutter);
+}
+
+.section + .section {
+  border-top: 1px solid var(--ink);
+}
+
+.section__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  column-gap: clamp(24px, 4vw, 64px);
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.section__side {
+  position: sticky;
+  top: 104px;
+  align-self: start;
+}
+
+.section__title {
+  margin-left: -0.04em;
+  font-size: clamp(2.75rem, 6vw, 5.25rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+
+/* ---------- Figures: the diagrams of the Work section ---------- */
+
+.section__figure {
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+.row__figure {
+  display: none;
+}
+
+.figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.figure figcaption {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid currentColor;
+}
+
+.figure text {
+  fill: var(--ink);
+  font: 600 11.5px var(--sans);
+  dominant-baseline: central;
+  animation: appear 0.4s 0.25s both;
+}
+
+.figure .fig-num {
+  font: 800 22px var(--sans);
+  letter-spacing: -0.03em;
+}
+
+/* pathLength is 1 on these shapes, so one dash of length 1 is the full outline. */
+.fig-stroke,
+.fig-box {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  animation: draw 0.7s var(--ease) both;
+}
+
+.fig-stroke {
+  fill: none;
+}
+
+.fig-box,
+.fig-paper {
+  fill: var(--paper);
+}
+
+.fig-dash {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  animation: appear 0.4s 0.3s both;
+}
+
+.fig-fill {
+  fill: var(--ink);
+  animation: appear 0.4s 0.3s both;
+}
+
+.fig-solid .fig-box {
+  fill: var(--ink);
+}
+
+.fig-solid text {
+  fill: var(--paper);
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- Rows ---------- */
+
+.job + .job {
+  margin-top: clamp(56px, 7vw, 96px);
+}
+
+.job__head,
+.project__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+.job__head {
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.job__company,
+.project__name {
+  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  column-gap: 24px;
+  padding: 24px 0 26px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.rows--flush {
+  border-top: 2px solid var(--ink);
+}
+
+.rows--next {
+  margin-top: clamp(48px, 6vw, 80px);
+}
+
+.row__lead {
+  font-size: clamp(1.375rem, 1.9vw, 1.75rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.row__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.row__text {
+  max-width: 38rem;
+  margin-top: 4px;
+}
+
+.row__list {
+  max-width: 38rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/*
+  Work rows. Each one leads with the result in one sentence.
+  On wide screens the selected row shows its diagram on the left.
+*/
+.rows--pick .row {
+  grid-template-columns: 11rem minmax(0, 1fr);
+  padding: 26px 0 28px;
+}
+
+.row__topic {
+  padding-top: 0.3em;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.row__headline {
+  max-width: 34rem;
+  font-size: clamp(1.25rem, 1.75vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.rows--pick .row__text {
+  margin-top: 8px;
+}
+
+/* A small square marks the row that the diagram on the left belongs to. */
+@media (min-width: 1101px) {
+  .rows--pick .row[data-active] .row__topic::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 8px;
+    background: var(--ink);
+  }
+}
+
+/* Projects */
+
+.project__figure {
+  max-width: 27rem;
+  margin: 22px 0 24px;
+}
+
+.project {
+  padding: 30px 0 32px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.project:first-child {
+  border-top: 2px solid var(--ink);
+}
+
+.project__what {
+  margin-top: 6px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.points {
+  max-width: 40rem;
+  margin: 16px 0 18px;
+}
+
+.points li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.points li + li {
+  margin-top: 6px;
+}
+
+.points li::before {
+  content: '';
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+}
+
+/* ---------- Closing: a pane of glass that turns the page behind it negative ---------- */
+
+.closing {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  padding: clamp(96px, 12vw, 168px) var(--gutter);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@supports ((backdrop-filter: invert(1)) or (-webkit-backdrop-filter: invert(1))) {
+  .closing {
+    background: none;
+    -webkit-backdrop-filter: invert(1);
+    backdrop-filter: invert(1);
+  }
+}
+
+.closing__inner {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.closing__lead {
+  margin-top: clamp(24px, 3vw, 40px);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.closing__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 40px;
+  margin-top: clamp(16px, 2vw, 24px);
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+}
+
+.closing .link {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 7px;
+}
+
+.closing .link:hover {
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration-color: transparent;
+}
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 1100px) {
+  .section__inner {
+    display: block;
+  }
+
+  .section__side {
+    position: static;
+    margin-bottom: 36px;
+  }
+
+  .section__figure {
+    display: none;
+  }
+
+  .row__figure {
+    display: block;
+    max-width: 26rem;
+    margin-top: 22px;
+  }
+}
+
+@media (max-width: 820px) {
+  .nav {
+    right: 12px;
+    left: 12px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 6px 6px 6px 18px;
+    transform: none;
+  }
+
+  .nav__name {
+    margin-right: auto;
+  }
+
+  .nav__toggle {
+    display: block;
+  }
+
+  .nav__links {
+    display: none;
+    flex-direction: column;
+    order: 3;
+    width: 100%;
+    padding: 10px 0 12px;
+  }
+
+  .nav--open {
+    background: rgba(255, 255, 255, 0.86);
+  }
+
+  .nav--dark.nav--open {
+    background: rgba(0, 0, 0, 0.86);
+  }
+
+  .nav--open .nav__links {
+    display: flex;
+  }
+
+  .nav__link {
+    padding: 6px 0;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .hero {
+    align-items: flex-start;
+    padding-top: 104px;
+  }
+
+  .hero__name {
+    font-size: clamp(3.2rem, 17.6vw, 7.2rem);
+  }
+
+  .hero__statement {
+    max-width: none;
+  }
+
+  /* The portrait fills the lower half, so the closing text stays in the upper half. */
+  .closing {
+    align-items: flex-start;
+  }
+
+  /* The portrait takes the space below the hero text. */
+  .portrait {
+    right: var(--gutter);
+    height: max(170px, 100svh - 500px);
+  }
+}
+
+@media (max-width: 640px) {
+  .row,
+  .rows--pick .row {
+    display: block;
+  }
+
+  .row {
+    padding: 20px 0 22px;
+  }
+
+  .row__lead,
+  .row__topic {
+    margin-bottom: 6px;
+  }
+
+  .row__topic {
+    padding-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
