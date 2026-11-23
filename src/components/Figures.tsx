@@ -55,17 +55,14 @@ function Tag({ at, children }: { at: Point; children: string }) {
   );
 }
 
-/** A large number with a small label under it. Sits below the rule at the foot of a figure. */
-function Metric({ x, value, label }: { x: number; value: string; label: string }) {
+/** A large number with its label on the same line. Sits below the rule at the foot of a figure. */
+function Metric({ row = 0, value, label }: { row?: number; value: string; label: string }) {
+  // The number and its label are one line of text. A second metric goes on the next line.
   return (
-    <g>
-      <text className="fig-num" x={x} y={216}>
-        {value}
-      </text>
-      <text x={x} y={241}>
-        {label}
-      </text>
-    </g>
+    <text x={20} y={216 + row * 28}>
+      <tspan className="fig-num">{value}</tspan>
+      <tspan dx={7}>{label}</tspan>
+    </text>
   );
 }
 
@@ -175,8 +172,8 @@ function Guardrails() {
       </text>
 
       <Rule />
-      <Metric x={20} value="6+" label="products" />
-      <Metric x={210} value="−40%" label="latency, ONNX Runtime" />
+      <Metric value="6+" label="products" />
+      <Metric row={1} value="−40%" label="latency, ONNX Runtime" />
     </>
   );
 }
@@ -236,7 +233,7 @@ function Agent() {
         Feedback
       </text>
       <Rule />
-      <Metric x={20} value="+3%" label="revenue, national airline" />
+      <Metric value="+3%" label="revenue, national airline" />
     </>
   );
 }
@@ -275,8 +272,8 @@ function Optimizer() {
         ]}
       />
       <Rule />
-      <Metric x={20} value="~20%" label="lower estimated cost" />
-      <Metric x={210} value="+25 pts" label="dev-set accuracy" />
+      <Metric value="~20%" label="lower estimated cost" />
+      <Metric row={1} value="+25 pts" label="dev-set accuracy" />
     </>
   );
 }
@@ -480,7 +477,7 @@ function Geospatial() {
         'scored',
       )}
       <Rule />
-      <Metric x={20} value="0.94" label="F1, crown segmentation" />
+      <Metric value="0.94" label="F1, crown segmentation" />
     </>
   );
 }
@@ -561,8 +558,8 @@ function Restoration() {
       />
       {tile(270, monument(false), 'Restored', 'LoRA-tuned model')}
       <Rule />
-      <Metric x={20} value="33.26 dB" label="PSNR, faces, 5% mask" />
-      <Metric x={210} value="0.955" label="SSIM" />
+      <Metric value="33.26 dB" label="PSNR, faces, 5% mask" />
+      <Metric row={1} value="0.955" label="SSIM" />
     </>
   );
 }
@@ -575,22 +572,21 @@ const figures: Record<FigureId, { caption: string; draw: () => ReactNode }> = {
   evals: { caption: 'Real traffic becomes the test set', draw: Evals },
   serving: { caption: 'The slow query leaves the request path', draw: Serving },
   geospatial: { caption: 'From drone image to corridor score', draw: Geospatial },
-  restoration: { caption: 'The method as a drawing, not model output', draw: Restoration },
+  restoration: { caption: 'A drawing of the method, not model output', draw: Restoration },
 };
 
 const order = Object.keys(figures) as FigureId[];
 
 export default function Figure({ id }: { id: FigureId }) {
   const { caption, draw: Draw } = figures[id];
-  // The portrait in the hero is Fig. 01.
-  const number = String(order.indexOf(id) + 2).padStart(2, '0');
+  const number = order.indexOf(id) + 1;
   return (
     <figure className="figure">
       <svg viewBox="0 0 400 260" role="img" aria-label={caption}>
         <Draw />
       </svg>
       <figcaption className="meta">
-        Fig. {number} <span aria-hidden="true">/</span> {caption}
+        Figure {number}. {caption}.
       </figcaption>
     </figure>
   );

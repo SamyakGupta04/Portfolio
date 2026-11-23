@@ -783,6 +783,48 @@ ol {
 }
 
 @media (max-width: 640px) {
+  /* Phones: a smaller text size and less space between blocks, so the page is shorter. */
+  body {
+    font-size: 1rem;
+  }
+
+  .section {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    /* A link from the menu must not put the title under the nav. */
+    scroll-margin-top: 28px;
+  }
+
+  .section__side {
+    margin-bottom: 28px;
+  }
+
+  .job + .job,
+  .rows--next {
+    margin-top: 44px;
+  }
+
+  .rows--pick .row {
+    padding: 22px 0 24px;
+  }
+
+  .row__figure {
+    margin-top: 18px;
+  }
+
+  .project {
+    padding: 24px 0 26px;
+  }
+
+  .closing {
+    padding-top: 112px;
+  }
+
+  .closing__links {
+    gap: 8px 26px;
+    font-size: 1.375rem;
+  }
+
   .row,
   .rows--pick .row {
     display: block;

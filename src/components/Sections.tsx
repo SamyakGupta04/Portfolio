@@ -86,7 +86,7 @@ export function Work() {
             <header className="job__head">
               <h3 className="job__company">{job.company}</h3>
               <p className="meta">
-                {job.role} <span aria-hidden="true">/</span> {job.dates} <span aria-hidden="true">/</span> {job.place}
+                {job.role}, {job.dates}, {job.place}
               </p>
             </header>
             <ul className="rows rows--pick">
@@ -186,11 +186,11 @@ export function Closing() {
     <section className="closing" id="contact" aria-labelledby="closing-title">
       <div className="closing__inner">
         <h2 className="section__title" id="closing-title">
-          That’s the
+          Thank you
           <br />
-          short version.
+          for reading.
         </h2>
-        <p className="closing__lead">The long one is here.</p>
+        <p className="closing__lead">The full detail is in my résumé and on these profiles.</p>
         <ul className="closing__links">
           <li>
             <a className="link" href={person.linkedin} target="_blank" rel="noreferrer">
